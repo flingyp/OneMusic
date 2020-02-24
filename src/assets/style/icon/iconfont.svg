@@ -1,0 +1,32 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<!--
+2013-9-30: Created.
+-->
+<svg>
+<metadata>
+Created by iconfont
+</metadata>
+<defs>
+
+<font id="iconfont" horiz-adv-x="1024" >
+  <font-face
+    font-family="iconfont"
+    font-weight="500"
+    font-stretch="normal"
+    units-per-em="1024"
+    ascent="896"
+    descent="-128"
+  />
+    <missing-glyph />
+    
+    <glyph glyph-name="daohang" unicode="&#58923;" d="M898.8 617.6H152.8a32 32 0 0 0 0 64h746a32 32 0 0 0 0-64zM898.8 348.592H152.8a32 32 0 0 0 0 64h746a32 32 0 0 0 0-64zM898.8 79.6H152.8a32 32 0 0 0 0 64h746a32 32 0 0 0 0-64z"  horiz-adv-x="1024" />
+
+    
+    <glyph glyph-name="sousuo" unicode="&#59152;" d="M447.745786 0.496213a446.414409 446.414409 0 1 0 174.288257 35.189885 444.973102 444.973102 0 0 0-174.288257-35.189885z m0 852.753146a404.995145 404.995145 0 1 1 286.380438-118.56585A402.344605 402.344605 0 0 1 447.745786 853.249359zM755.257255 123.513015l29.270754 31.15911 267.654435-251.432399-29.270753-31.159111z"  horiz-adv-x="1052" />
+
+    
+
+
+  </font>
+</defs></svg>

@@ -1,10 +1,17 @@
 <template>
-  <div>推荐页面</div>
+  <div>
+    <!-- 轮播组件 -->
+    <swiper></swiper>
+  </div>
 </template>
 
 <script>
+import Swiper from './swiper/Swiper'
 export default {
-  name: 'Recommend'
+  name: 'Recommend',
+  components: {
+    Swiper
+  }
 }
 </script>
 

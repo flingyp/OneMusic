@@ -28,6 +28,10 @@ npm run build --report
 
 ### 推荐页面
 
+1. 推荐页面的轮播图
+  1. 安装使用了 `Vue-Awesome-Swiper` 轮播插件2.6.7版本的 最新版本现在坑有点多
+  2. 安装使用了 `axios` 来请求数据 
+
 ### 歌手页面
 
 ### 歌手详情页面
@@ -43,4 +47,9 @@ npm run build --report
 ### 歌曲列表页面
 
 ### 用户中心页面
+
+## 数据和数据接口API
+  * 数据调用的是 **NeteaseCloudMusicApi(网易云音乐 NodeJS 版 API)**
+  * https://binaryify.github.io/NeteaseCloudMusicApi/#/?id=neteasecloudmusicapi
+  * 感谢数据的提供！！！
 

@@ -1,27 +1,33 @@
 <template>
-  <div class="Swiper">
-    <swiper
-      class="swiper"
-      :options="swiperOption"
-      ref="mySwiper"
-    >
-      <swiper-slide
-        v-for="item in this.Data"
-        :key="item.bannerId"
+  <div
+    class="Swiper"
+    :data="Data"
+    v-if="Data.length"
+  >
+    <div>
+      <swiper
+        class="swiper"
+        :options="swiperOption"
+        ref="mySwiper"
       >
-        <a href="https://music.163.com/">
-          <img
-            class="swiper-img"
-            :src="item.pic"
-            alt=""
-          >
-        </a>
-      </swiper-slide>
-      <div
-        class="swiper-pagination"
-        slot="pagination"
-      ></div>
-    </swiper>
+        <swiper-slide
+          v-for="item in this.Data"
+          :key="item.bannerId"
+        >
+          <a href="https://music.163.com/">
+            <img
+              class="swiper-img"
+              :src="item.pic"
+              alt=""
+            >
+          </a>
+        </swiper-slide>
+        <div
+          class="swiper-pagination"
+          slot="pagination"
+        ></div>
+      </swiper>
+    </div>
   </div>
 </template>
 
@@ -39,12 +45,15 @@ export default {
         autoplayDisableOnInteraction: false,
         pagination: '.swiper-pagination'
       },
+      // 轮播图数据
       Data: {},
       type: 2
     }
   },
   mounted () {
-    this.GetSwiperData()
+    setTimeout(() => {
+      this.GetSwiperData()
+    }, 500)
   },
   methods: {
     // 获取轮播图数据函数
@@ -61,10 +70,11 @@ export default {
     SwiperData (res) {
       if (res.status === 200 || res.data) {
         this.Data = res.data.banners
-        console.log(this.Data)
+        // console.log(this.Data)
       }
     }
   }
+
 }
 </script>
 

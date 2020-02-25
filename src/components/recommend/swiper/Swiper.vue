@@ -1,24 +1,21 @@
 <template>
   <div
     class="Swiper"
-    :data="Data"
-    v-if="Data.length"
+    v-show="swiper.length"
   >
     <div>
       <swiper
         class="swiper"
         :options="swiperOption"
-        ref="mySwiper"
       >
         <swiper-slide
-          v-for="item in this.Data"
+          v-for="item in swiper"
           :key="item.bannerId"
         >
           <a href="https://music.163.com/">
             <img
               class="swiper-img"
               :src="item.pic"
-              alt=""
             >
           </a>
         </swiper-slide>
@@ -32,9 +29,11 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   name: 'SwiperImg',
+  props: {
+    swiper: Array
+  },
   data () {
     return {
       swiperOption: {
@@ -45,36 +44,9 @@ export default {
         autoplayDisableOnInteraction: false,
         pagination: '.swiper-pagination'
       },
-      // 轮播图数据
-      Data: {},
       type: 2
     }
-  },
-  mounted () {
-    setTimeout(() => {
-      this.GetSwiperData()
-    }, 500)
-  },
-  methods: {
-    // 获取轮播图数据函数
-    GetSwiperData () {
-      axios.get('api/banner', {
-        params: {
-          type: this.type
-        }
-      }).then(this.SwiperData)
-        .catch(function (err) {
-          console.log(err)
-        })
-    },
-    SwiperData (res) {
-      if (res.status === 200 || res.data) {
-        this.Data = res.data.banners
-        // console.log(this.Data)
-      }
-    }
   }
-
 }
 </script>
 

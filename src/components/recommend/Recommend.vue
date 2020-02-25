@@ -2,7 +2,7 @@
   <div>
     <div>
       <!-- 轮播组件 -->
-      <swiper></swiper>
+      <swiper :swiper="swiper"></swiper>
 
       <div>
         <!-- 推荐歌单 -->
@@ -69,7 +69,7 @@
           </ul>
         </div>
       </div>
-
+      <!-- loading部分 -->
       <div
         class="loading"
         v-show="!(listData.length&&Data.length)"
@@ -96,15 +96,37 @@ export default {
       // 存放推荐歌单数据
       listData: [],
       // 存放推荐音乐数据
-      Data: []
+      Data: [],
+      // 存放轮播数据
+      swiper: [],
+      // 轮播数据的 手机
+      type: 2
     }
   },
   mounted () {
     setTimeout(() => {
       this.getSongList()
-    }, 1000)
+      this.GetSwiperData()
+    }, 500)
   },
   methods: {
+    // 获取轮播图数据函数
+    GetSwiperData () {
+      axios.get('api/banner', {
+        params: {
+          type: this.type
+        }
+      }).then(this.SwiperData)
+        .catch(function (err) {
+          console.log(err)
+        })
+    },
+    SwiperData (res) {
+      if (res.status === 200 || res.data) {
+        this.swiper = res.data.banners
+        // console.log(this.Data)
+      }
+    },
     getSongList () {
       // 请求推荐歌单数据
       axios.get('api/personalized').then(this.SongList).catch(function (err) {
@@ -135,18 +157,12 @@ export default {
 <style lang="stylus" scoped>
 .songlist {
   overflow: hidden;
+  width: 100%;
 
   .song-title {
     height: 65px;
     line-height: 65px;
     background: #FFFAF0;
-
-    .title {
-      color: #2e3030;
-      font-weight: 700;
-      font-size: 16px;
-      padding-left: 1.8%;
-    }
   }
 
   .song-list {
@@ -161,6 +177,11 @@ export default {
       box-sizing: border-box;
       width: 33.3%;
       padding: 0 1%;
+
+      .icon {
+        max-width: 100%;
+        border-radius: 4px;
+      }
 
       .item-count {
         position: absolute;
@@ -182,14 +203,9 @@ export default {
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
-          font-size: 13px;
+          font-size: 11px;
           font-weight: 700;
         }
-      }
-
-      .icon {
-        max-width: 100%;
-        border-radius: 4px;
       }
     }
   }

@@ -163,6 +163,13 @@ export default {
     height: 65px;
     line-height: 65px;
     background: #FFFAF0;
+
+    .title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #CD853F;
+      padding-left: 8px;
+    }
   }
 
   .song-list {

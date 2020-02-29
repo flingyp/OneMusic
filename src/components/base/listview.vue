@@ -15,6 +15,7 @@
         <h2 class="list-group-title">{{group.title}}</h2>
         <ul>
           <li
+            @click="selectItem(item)"
             class="list-group-item"
             v-for="item in group.items"
             :key="item.id"
@@ -108,6 +109,9 @@ export default {
         // 如果没有val这个参数 就是获取
         return el.getAttribute(name)
       }
+    },
+    selectItem (item) {
+      this.$emit('select', item)
     }
   }
 }

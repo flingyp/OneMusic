@@ -1,6 +1,10 @@
 <template>
   <div class="singer">
-    <list-view :data="singers"></list-view>
+    <list-view
+      @select="selectSinger"
+      :data="singers"
+    ></list-view>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -9,6 +13,7 @@ import axios from 'axios'
 import pinyin from 'pinyin'
 import Singer from '../../common/singer.js'
 import ListView from 'components/base/listview'
+import { mapMutations } from 'vuex'
 const HOTname = '热门'
 const HOTsingers = 15
 export default {
@@ -26,6 +31,9 @@ export default {
     this.getSingerList()
   },
   methods: {
+    ...mapMutations({
+      setSinger: 'SET_SINGER'
+    }),
     // 获取请求歌手数据
     getSingerList () {
       axios.get('api/top/artists', {
@@ -102,6 +110,14 @@ export default {
         return a.title.charCodeAt(0) - b.title.charCodeAt(0)
       })
       return hot.concat(ret)
+    },
+    selectSinger (singer) {
+      // console.log(singer)
+      this.$router.push({
+        path: `/singer/${singer.id}`
+      })
+      // 把singer数据存放在 vuex的 state中
+      this.setSinger(singer)
     }
   }
 }

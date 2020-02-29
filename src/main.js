@@ -10,6 +10,8 @@ import 'assets/style/iconfont.css'
 import 'assets/style/reset.css'
 import 'assets/style/border.css'
 import 'assets/style/global.css'
+import 'animate.css'
+import store from './store'
 
 Vue.config.productionTip = false
 
@@ -23,5 +25,6 @@ Vue.use(VueLazyLoad, {
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })

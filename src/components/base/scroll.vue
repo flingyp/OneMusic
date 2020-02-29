@@ -79,4 +79,13 @@ export default {
 }
 </script>
 
-<style scoped lang="stylus" rel="stylesheet/stylus"></style>
+<style scoped lang="stylus" rel="stylesheet/stylus">
+.wrapper {
+  overflow: hidden;
+  width: 100%;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+</style>

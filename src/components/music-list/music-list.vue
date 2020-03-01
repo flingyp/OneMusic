@@ -21,7 +21,10 @@
       class="content"
     >
       <div class="song-list-wrapper">
-        <song-list :songs="songs"></song-list>
+        <song-list
+          @select="selectItem"
+          :songs="songs"
+        ></song-list>
       </div>
 
       <div
@@ -38,6 +41,7 @@
 import SongList from 'components/song-list/song-list'
 import Scroll from 'components/base/scroll'
 import Loading from 'components/base/loading'
+import { mapActions } from 'vuex'
 export default {
   props: {
     bgImage: {
@@ -74,8 +78,19 @@ export default {
     Loading
   },
   methods: {
+    ...mapActions([
+      'selectPlay'
+    ]),
     back () {
       this.$router.back()
+    },
+    selectItem (item, index) {
+      this.selectPlay({
+        list: this.songs,
+        index,
+        url: item.id
+        // url是歌曲mp3播放地址
+      })
     }
   }
 }

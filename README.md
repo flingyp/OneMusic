@@ -45,6 +45,9 @@ npm run build --report
 3. 太难了！！！！！！！
 
 ### 播放器
+1. 通过Vuex实现管理相关播放器配置数据 
+2. 给播放器界面设置简单的动画过渡
+3. ....进行中
 
 ### 歌单页面
 
@@ -59,5 +62,6 @@ npm run build --report
 ## 数据和数据接口API
   * 数据调用的是 **NeteaseCloudMusicApi(网易云音乐 NodeJS 版 API)**
   * https://binaryify.github.io/NeteaseCloudMusicApi/#/?id=neteasecloudmusicapi
-  * 感谢数据的提供！！！
+  * 感谢数据接口的提供！！！
+
 

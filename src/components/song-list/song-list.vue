@@ -9,6 +9,7 @@
         class="item"
         v-for="(song,index) in songs"
         :key="song.id"
+        @click="selectItem(song, index)"
       >
         <div class="content">
           <div class="IndexName">
@@ -33,6 +34,9 @@ export default {
     }
   },
   methods: {
+    selectItem (item, index) {
+      this.$emit('select', item, index)
+    }
   }
 }
 </script>

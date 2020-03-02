@@ -39,6 +39,6 @@ export const currentSong = (state) => {
 }
 
 // 当前播放歌曲map3的url地址 ID值
-export const currentUrlId = (state) => {
+export const currentUrl = (state) => {
   return state.currentUrl
 }

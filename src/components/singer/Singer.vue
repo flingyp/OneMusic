@@ -48,6 +48,7 @@ export default {
     SingerList (res) {
       // 添加歌手名字 首拼音字母
       if (res.status === 200) {
+        // console.log(res)
         let singer = res.data.artists
         singer.map(item => {
           let py = pinyin(item.name[0], {

@@ -11,6 +11,7 @@ import 'assets/style/reset.css'
 import 'assets/style/border.css'
 import 'assets/style/global.css'
 import 'animate.css'
+import 'assets/style/font-awesome/css/font-awesome.min.css'
 import store from './store'
 
 Vue.config.productionTip = false

@@ -42,6 +42,7 @@ import SongList from 'components/song-list/song-list'
 import Scroll from 'components/base/scroll'
 import Loading from 'components/base/loading'
 import { mapActions } from 'vuex'
+import axios from 'axios'
 export default {
   props: {
     bgImage: {
@@ -60,7 +61,9 @@ export default {
   },
   data () {
     return {
-      scrollY: 0
+      scrollY: 0,
+      url: ''
+      // 歌曲播放地址
     }
   },
   computed: {
@@ -85,11 +88,22 @@ export default {
       this.$router.back()
     },
     selectItem (item, index) {
-      this.selectPlay({
-        list: this.songs,
-        index,
-        url: item.id
-        // url是歌曲mp3播放地址
+      // 请求 歌曲播放的url地址
+      axios.get('api/song/url', {
+        params: {
+          id: item.id
+        }
+      }).then((res) => {
+        if (res.status === 200) {
+          // 获取url地址
+          const url = res.data.data[0].url
+          this.selectPlay({
+            list: this.songs,
+            index,
+            url: url
+            // url是歌曲mp3播放地址
+          })
+        }
       })
     }
   }

@@ -8,7 +8,7 @@ const state = {
   sequenceList: [], // 顺序列表
   mode: playMode.sequence, // 播放模式
   currentIndex: -1, // 播放当前歌曲的索引
-  currentUrlId: '' // 当前播放歌曲map3的url地址 的id
+  currentUrl: '' // 当前播放歌曲map3的url地址
 }
 
 export default state

@@ -20,7 +20,7 @@
             class="back"
             @click="back"
           >
-            <i class="icon-back iconfont">&#xe653;</i>
+            <i class="fa fa-chevron-left"></i>
           </div>
           <h1
             class="title"
@@ -34,7 +34,10 @@
         <div class="middle">
           <div class="middle-l">
             <div class="cd-wrapper">
-              <div class="cd">
+              <div
+                class="cd"
+                :class="rotateCd"
+              >
                 <img
                   class="image"
                   v-lazy="currentSong.image"
@@ -49,16 +52,20 @@
               <i class="icon-sequence iconfont">&#xe6cc;</i>
             </div>
             <div class="icon i-left">
-              <i class="icon-prev iconfont">&#xe624;</i>
+              <i class="fa fa-angle-double-left"></i>
             </div>
             <div class="icon i-center">
-              <i class="icon-play iconfont">&#xe60f;</i>
+              <i
+                @click="togglePlaying"
+                class="fa"
+                :class="playIcon"
+              ></i>
             </div>
             <div class="icon i-right">
-              <i class="icon-next iconfont">&#xe62d;</i>
+              <i class="fa fa-angle-double-right"></i>
             </div>
             <div class="icon i-right">
-              <i class="icon-not-favorite iconfont">&#xe6a5;</i>
+              <i class="fa fa-heartbeat"></i>
             </div>
           </div>
         </div>
@@ -73,6 +80,7 @@
       >
         <div class="icon">
           <img
+            :class="rotateCd"
             v-lazy="currentSong.image"
             width="40"
             height="40"
@@ -88,14 +96,25 @@
             v-html="currentSong.singer"
           ></p>
         </div>
-        <div class="control">
-
+        <div
+          class="control"
+          @click.stop="togglePlaying"
+        >
+          <i
+            class="fa"
+            :class="miniIcon"
+          ></i>
         </div>
         <div class="control">
-          <i class="icon-playlist iconfont">&#xe6cc;</i>
+          <i class="fa fa-random"></i>
         </div>
       </div>
     </transition>
+
+    <audio
+      ref="audio"
+      :src="currentUrl"
+    ></audio>
   </div>
 
 </template>
@@ -108,18 +127,51 @@ export default {
       'fullScreen',
       'playlist',
       'currentSong',
-      'currentUrlId'
-    ])
+      'currentUrl',
+      'playing'
+    ]),
+    playIcon () {
+      // playing 为 ture时 显示暂停的图标 false时 显示播放的图标
+      return this.playing ? 'fa-pause-circle-o' : 'fa-play-circle'
+    },
+    miniIcon () {
+      // playing 为 ture时 显示暂停的图标 false时 显示播放的图标
+      return this.playing ? 'fa-pause-circle-o' : 'fa-play-circle'
+    },
+    rotateCd () {
+      // 歌曲cd磁盘图片 旋转 类名 true 转动 false 不转动
+      return this.playing ? 'play' : 'play pause'
+    }
   },
   methods: {
     ...mapMutations({
-      setFullScreen: 'SET_FULL_SCREEN'
+      setFullScreen: 'SET_FULL_SCREEN',
+      setPlayingState: 'SET_PLAYING_STATE'
     }),
     back () {
       this.setFullScreen(false)
     },
     open () {
       this.setFullScreen(true)
+    },
+    togglePlaying () {
+      this.setPlayingState(!this.playing)
+    }
+  },
+  watch: {
+    currentSong () {
+      this.$nextTick(() => {
+        // 调用 audio标签的 play()方法 播放歌曲
+        this.$refs.audio.play()
+      })
+    },
+    // 监听 播放状态 true 播放  false 暂停
+    playing (NewPlaying) {
+      // console.log(NewPlaying)
+      const audio = this.$refs.audio
+      this.$nextTick(() => {
+        NewPlaying ? audio.play() : audio.pause()
+      })
     }
   }
 }
@@ -160,11 +212,11 @@ export default {
         left: 6px;
         z-index: 50;
 
-        .icon-back {
+        .fa-chevron-left {
           display: block;
           padding: 9px;
           font-size: $font-size-large-x;
-          color: $color-theme;
+          color: #e84118;
           transform: rotate(-90deg);
         }
       }
@@ -298,7 +350,7 @@ export default {
 
         .icon {
           flex: 1;
-          color: #7ed6df;
+          color: #e84118;
 
           &.disable {
             color: $color-theme-d;
@@ -381,7 +433,7 @@ export default {
         border-radius: 50%;
 
         &.play {
-          animation: rotate 10s linear infinite;
+          animation: rotate 20s linear infinite;
         }
 
         &.pause {
@@ -417,7 +469,7 @@ export default {
       width: 30px;
       padding: 0 10px;
 
-      .icon-play-mini, .icon-pause-mini, .icon-playlist {
+      .icon-play-mini, .icon-pause-mini, .fa {
         font-size: 30px;
         color: #4834d4;
       }
@@ -428,6 +480,16 @@ export default {
         left: 0;
         top: 0;
       }
+    }
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0);
+    }
+
+    100% {
+      transform: rotate(360deg);
     }
   }
 }

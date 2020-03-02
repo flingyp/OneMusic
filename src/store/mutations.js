@@ -23,8 +23,8 @@ const mutations = {
   [types.SET_CURRENT_INDEX] (state, index) {
     state.currentIndex = index
   },
-  [types.SET_CURRENT_URLID] (state, url) {
-    state.currentUrlId = url
+  [types.SET_CURRENT_URL] (state, url) {
+    state.currentUrl = url
   }
 }
 

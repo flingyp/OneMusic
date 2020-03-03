@@ -68,7 +68,7 @@ npm run build --report
 
 ## 为何做这个？
   * 刚刚学完 Vue这个框架 体验到了数据驱动视图 MVVM思想， 但是那时候没有感受到它的强大之处
-  * 然后再知乎看到 [Vue 实现网易云音乐 WebApp]('https://zhuanlan.zhihu.com/p/36889981') 这篇文章
+  * 然后再知乎看到 [Vue 实现网易云音乐 WebApp](https://zhuanlan.zhihu.com/p/36889981) 这篇文章
   * 就决定去按照它的样式模板自己去写一个了
   * 然后就是发现有这个 数据的提供 就觉得很舒服 完全不用顾及 数据的提供
 

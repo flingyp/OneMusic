@@ -47,12 +47,20 @@
           </div>
         </div>
         <div class="bottom">
+          <div class="progress-wrapper">
+            <span class="time time-l">{{format(currentTime)}}</span>
+            <div class="progress-bar-wrapper"></div>
+            <span class="time time-r">{{format(duration)}}</span>
+          </div>
           <div class="operators">
             <div class="icon i-left">
               <i class="icon-sequence iconfont">&#xe6cc;</i>
             </div>
             <div class="icon i-left">
-              <i class="fa fa-angle-double-left"></i>
+              <i
+                @click="prev"
+                class="fa fa-angle-double-left"
+              ></i>
             </div>
             <div class="icon i-center">
               <i
@@ -62,7 +70,10 @@
               ></i>
             </div>
             <div class="icon i-right">
-              <i class="fa fa-angle-double-right"></i>
+              <i
+                @click="next"
+                class="fa fa-angle-double-right"
+              ></i>
             </div>
             <div class="icon i-right">
               <i class="fa fa-heartbeat"></i>
@@ -114,6 +125,9 @@
     <audio
       ref="audio"
       :src="currentUrl"
+      @canplay="ready"
+      @error="error"
+      @timeupdate="updataTime"
     ></audio>
   </div>
 
@@ -121,14 +135,25 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+// import { getUrl } from 'common/axios.js'
+import axios from 'axios'
 export default {
+  data () {
+    return {
+      songReady: false,
+      currentTime: 0,
+      // 歌曲播放的总时长
+      duration: 0
+    }
+  },
   computed: {
     ...mapGetters([
       'fullScreen',
       'playlist',
       'currentSong',
       'currentUrl',
-      'playing'
+      'playing',
+      'currentIndex'
     ]),
     playIcon () {
       // playing 为 ture时 显示暂停的图标 false时 显示播放的图标
@@ -146,8 +171,22 @@ export default {
   methods: {
     ...mapMutations({
       setFullScreen: 'SET_FULL_SCREEN',
-      setPlayingState: 'SET_PLAYING_STATE'
+      setPlayingState: 'SET_PLAYING_STATE',
+      setCurrentIndex: 'SET_CURRENT_INDEX',
+      setCurrentUrl: 'SET_CURRENT_URL'
     }),
+    // 发送url请求 获取url地址 再改变vuex 的 setCurrentUrl值
+    getUrl (id) {
+      axios.get('api/song/url', {
+        params: {
+          // 歌曲的id值
+          id
+        }
+      }).then((res) => {
+        const url = res.data.data[0].url
+        this.setCurrentUrl(url)
+      })
+    },
     back () {
       this.setFullScreen(false)
     },
@@ -156,6 +195,72 @@ export default {
     },
     togglePlaying () {
       this.setPlayingState(!this.playing)
+    },
+    ready () {
+      this.songReady = true
+      // 歌曲准备好后 就播放 解决点击上/下一首按钮后 不播放的问题
+      this.$refs.audio.play()
+      // 获取歌曲的总时长
+      this.duration = this.$refs.audio.duration
+    },
+    error () {
+      this.songReady = true
+    },
+    next () {
+      if (!this.songReady) {
+        return
+      }
+      let index = this.currentIndex + 1
+      if (index === this.playlist.length) {
+        index = 0
+      }
+      this.setCurrentIndex(index)
+      // 根据当前索引 获取 id值 再发送请求获取 歌曲url值 再修改 vuex中的 currentUrl
+      this.getUrl(this.playlist[index].id)
+
+      // 如果切换到下一首歌时 按钮是暂停的状态 则 变成 播放
+      if (!this.playing) {
+        this.togglePlaying()
+      }
+      this.songReady = false
+    },
+    prev () {
+      if (!this.songReady) {
+        return
+      }
+      let index = this.currentIndex - 1
+      if (index === -1) {
+        index = this.playlist.length - 1
+      }
+      this.setCurrentIndex(index)
+      // 根据当前索引 获取 id值 再发送请求获取 歌曲url值 再修改 vuex中的 currentUrl
+      this.getUrl(this.playlist[index].id)
+
+      // 如果切换到下一首歌时 按钮是暂停的状态 则 变成 播放
+      if (!this.playing) {
+        this.togglePlaying()
+      }
+      this.songReady = false
+    },
+    updataTime (e) {
+      // e.target.currentTime 获取的是歌曲正在播放的时间 一直播放则一直获取
+      this.currentTime = e.target.currentTime
+    },
+    // 歌曲时间歌手处理
+    format (int) {
+      int = int | 0
+      const minute = int / 60 | 0
+      const second = this.pad(int % 60)
+      return `${minute}:${second}`
+    },
+    // 补零操作
+    pad (num, m = 2) {
+      let length = num.toString().length
+      while (length < m) {
+        num = '0' + num
+        length++
+      }
+      return num
     }
   },
   watch: {
@@ -324,8 +429,8 @@ export default {
         padding: 10px 0;
 
         .time {
-          color: $color-text;
-          font-size: $font-size-small;
+          color: #e17055;
+          font-size: 15px;
           flex: 0 0 30px;
           line-height: 30px;
           width: 30px;

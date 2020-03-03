@@ -88,7 +88,6 @@ export default {
       this.$router.back()
     },
     selectItem (item, index) {
-      // 请求 歌曲播放的url地址
       axios.get('api/song/url', {
         params: {
           id: item.id

@@ -48,7 +48,8 @@ npm run build --report
 1. 通过Vuex实现管理相关播放器配置数据 
 2. 给播放器界面设置简单的动画过渡
 3. 歌曲播放和控制歌曲播放（暂停 播放）和 歌曲图片旋转动画功能实现
-4. ...进行中
+4. 实现歌曲 上一首 下一首播放 和 获取歌曲时间 功能 
+5. ...进行中
 
 ### 歌单页面
 
@@ -64,5 +65,11 @@ npm run build --report
   * 数据调用的是 **NeteaseCloudMusicApi(网易云音乐 NodeJS 版 API)**
   * https://binaryify.github.io/NeteaseCloudMusicApi/#/?id=neteasecloudmusicapi
   * 感谢数据接口的提供！！！
+
+## 为何做这个？
+  * 刚刚学完 Vue这个框架 体验到了数据驱动视图 MVVM思想， 但是那时候没有感受到它的强大之处
+  * 然后再知乎看到 [Vue 实现网易云音乐 WebApp]('https://zhuanlan.zhihu.com/p/36889981') 这篇文章
+  * 就决定去按照它的样式模板自己去写一个了
+  * 然后就是发现有这个 数据的提供 就觉得很舒服 完全不用顾及 数据的提供
 
 

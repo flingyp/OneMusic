@@ -35,12 +35,17 @@
       </div>
 
       <!-- 提示框组件 -->
-      <div
-        class="prompt-container animated slideInDown"
-        v-show="prompt"
+      <transition
+        enter-active-class="bounceInLeft"
+        leave-active-class="fadeOutUp"
       >
-        <prompt></prompt>
-      </div>
+        <div
+          class="prompt-container animated"
+          v-show="prompt"
+        >
+          <prompt></prompt>
+        </div>
+      </transition>
     </scroll>
   </div>
 </template>

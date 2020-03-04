@@ -47,12 +47,18 @@
             </div>
 
             <!-- 提示框组件 -->
-            <div
-              class="prompt-container animated slideInDown"
-              v-show="ControlPrompta"
+            <transition
+              enter-active-class="bounceInLeft"
+              leave-active-class="fadeOutUp"
+              :duration="{ enter: 500, leave: 800 }"
             >
-              <prompt></prompt>
-            </div>
+              <div
+                class="prompt-container animated"
+                v-show="ControlPrompta"
+              >
+                <prompt></prompt>
+              </div>
+            </transition>
           </div>
         </div>
         <div class="bottom">

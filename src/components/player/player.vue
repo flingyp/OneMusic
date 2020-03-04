@@ -3,6 +3,7 @@
     class="player"
     v-show="playlist.length > 0"
   >
+
     <transition name="normal">
       <div
         class="normal-player"
@@ -44,17 +45,34 @@
                 >
               </div>
             </div>
+
+            <!-- 提示框组件 -->
+            <div
+              class="prompt-container animated slideInDown"
+              v-show="ControlPrompta"
+            >
+              <prompt></prompt>
+            </div>
           </div>
         </div>
         <div class="bottom">
           <div class="progress-wrapper">
             <span class="time time-l">{{format(currentTime)}}</span>
-            <div class="progress-bar-wrapper"></div>
+            <div class="progress-bar-wrapper">
+              <progress-bar
+                :precent="precent"
+                @percentChange="percentChange"
+              ></progress-bar>
+            </div>
             <span class="time time-r">{{format(duration)}}</span>
           </div>
           <div class="operators">
             <div class="icon i-left">
-              <i class="icon-sequence iconfont">&#xe6cc;</i>
+              <i
+                v-html="iconMode"
+                class="iconfont"
+                @click="changeMode"
+              ></i>
             </div>
             <div class="icon i-left">
               <i
@@ -128,23 +146,37 @@
       @canplay="ready"
       @error="error"
       @timeupdate="updataTime"
+      @ended="end"
     ></audio>
+
   </div>
 
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
-// import { getUrl } from 'common/axios.js'
 import axios from 'axios'
+import ProgressBar from 'components/base/progress-bar'
+import { playMode } from 'common/config.js'
+import { random } from 'common/util.js'
+import Prompt from 'components/base/prompt'
 export default {
   data () {
     return {
       songReady: false,
       currentTime: 0,
       // 歌曲播放的总时长
-      duration: 0
+      duration: 0,
+      sequence: '&#xe671;',
+      loop: '&#xe607;',
+      random: '&#xe672;',
+      // 控制弹出框显示
+      ControlPrompta: false
     }
+  },
+  components: {
+    ProgressBar,
+    Prompt
   },
   computed: {
     ...mapGetters([
@@ -153,7 +185,9 @@ export default {
       'currentSong',
       'currentUrl',
       'playing',
-      'currentIndex'
+      'currentIndex',
+      'mode',
+      'sequenceList'
     ]),
     playIcon () {
       // playing 为 ture时 显示暂停的图标 false时 显示播放的图标
@@ -166,6 +200,13 @@ export default {
     rotateCd () {
       // 歌曲cd磁盘图片 旋转 类名 true 转动 false 不转动
       return this.playing ? 'play' : 'play pause'
+    },
+    precent () {
+      // 歌曲播放的时间 和 总时间的 百分比
+      return this.currentTime / this.duration
+    },
+    iconMode () {
+      return this.mode === playMode.sequence ? this.sequence : this.mode === playMode.loop ? this.loop : this.random
     }
   },
   methods: {
@@ -173,7 +214,9 @@ export default {
       setFullScreen: 'SET_FULL_SCREEN',
       setPlayingState: 'SET_PLAYING_STATE',
       setCurrentIndex: 'SET_CURRENT_INDEX',
-      setCurrentUrl: 'SET_CURRENT_URL'
+      setCurrentUrl: 'SET_CURRENT_URL',
+      setPlayMode: 'SET_PLAY_MODE',
+      setPlayList: 'SET_PLAYLIST'
     }),
     // 发送url请求 获取url地址 再改变vuex 的 setCurrentUrl值
     getUrl (id) {
@@ -184,8 +227,25 @@ export default {
         }
       }).then((res) => {
         const url = res.data.data[0].url
+        if (url === null) {
+          // 提示弹出框显示
+          this.ControlPrompta = true
+          // 1s后提示弹出框消失
+          this.OutPrompt()
+          // 暂停上一首歌曲的播放
+          this.$refs.audio.pause()
+          // 可以点击下一首 上一首 按钮
+          this.songReady = true
+        }
         this.setCurrentUrl(url)
       })
+    },
+    OutPrompt () {
+      var timer = setTimeout(() => {
+        this.ControlPrompta = false
+
+        clearTimeout(timer)
+      }, 1000)
     },
     back () {
       this.setFullScreen(false)
@@ -224,6 +284,17 @@ export default {
       }
       this.songReady = false
     },
+    end () {
+      // 歌曲播放完了
+      if (this.mode === playMode.loop) {
+        // 单曲循环情况下
+        setTimeout(() => {
+          this.$refs.audio.currentTime = 0
+        }, 1000)
+      } else {
+        this.next()
+      }
+    },
     prev () {
       if (!this.songReady) {
         return
@@ -261,10 +332,40 @@ export default {
         length++
       }
       return num
+    },
+    percentChange (percent) {
+      // 播放的歌曲time = 歌曲总时间 * (百分比)
+      this.$refs.audio.currentTime = this.$refs.audio.duration * percent
+      if (!this.playing) {
+        this.togglePlaying()
+      }
+    },
+    resetCurrentIndex (list) {
+      let index = list.findIndex((item) => {
+        return item.id === this.currentSong.id
+      })
+      this.setCurrentIndex(index)
+    },
+    changeMode () {
+      const mode = (this.mode + 1) % 3
+      this.setPlayMode(mode)
+
+      let list = null
+      if (mode === playMode.random) {
+        // 获取到 顺序列表 sequenceList数组 然后把它打乱 就是随机列表
+        list = random(this.sequenceList)
+      } else if (mode === playMode.sequence) {
+        list = this.sequenceList
+      }
+      this.resetCurrentIndex(list)
+      this.setPlayList(list)
     }
   },
   watch: {
-    currentSong () {
+    currentSong (newSong, oldSong) {
+      if (newSong.id === oldSong.id) {
+        return
+      }
       this.$nextTick(() => {
         // 调用 audio标签的 play()方法 播放歌曲
         this.$refs.audio.play()
@@ -272,7 +373,6 @@ export default {
     },
     // 监听 播放状态 true 播放  false 暂停
     playing (NewPlaying) {
-      // console.log(NewPlaying)
       const audio = this.$refs.audio
       this.$nextTick(() => {
         NewPlaying ? audio.play() : audio.pause()
@@ -360,6 +460,13 @@ export default {
         height: 0;
         padding-top: 80%;
 
+        .prompt-container {
+          width: 100%;
+          height: 30px;
+          background: #a4b0be;
+          opacity: 0.8;
+        }
+
         .cd-wrapper {
           position: absolute;
           left: 10%;
@@ -429,7 +536,7 @@ export default {
         padding: 10px 0;
 
         .time {
-          color: #e17055;
+          color: #fff;
           font-size: 15px;
           flex: 0 0 30px;
           line-height: 30px;
@@ -437,10 +544,12 @@ export default {
 
           &.time-l {
             text-align: left;
+            margin-right: 2px;
           }
 
           &.time-r {
             text-align: right;
+            margin-left: 2px;
           }
         }
 

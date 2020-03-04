@@ -2,7 +2,7 @@
   <div class="song-list">
     <div class="all">
       <i class="iconfont">&#xe60f;</i>
-      <i>播放全部(共{{songs.length}}首)</i>
+      <i>共{{songs.length}}歌曲</i>
     </div>
     <ul>
       <li

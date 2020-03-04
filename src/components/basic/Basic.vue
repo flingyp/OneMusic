@@ -32,7 +32,7 @@
           to="/singer"
           class="singer"
           tag="div"
-        >歌手</router-link>
+        >热门歌手</router-link>
       </div>
     </div>
   </div>

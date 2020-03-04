@@ -129,7 +129,11 @@ export default {
     },
     getSongList () {
       // 请求推荐歌单数据
-      axios.get('api/personalized').then(this.SongList).catch(function (err) {
+      axios.get('api/personalized', {
+        params: {
+          limit: 50
+        }
+      }).then(this.SongList).catch(function (err) {
         console.log(err)
       })
 

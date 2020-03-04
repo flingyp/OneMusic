@@ -33,6 +33,14 @@
       >
         <loading></loading>
       </div>
+
+      <!-- 提示框组件 -->
+      <div
+        class="prompt-container animated slideInDown"
+        v-show="prompt"
+      >
+        <prompt></prompt>
+      </div>
     </scroll>
   </div>
 </template>
@@ -41,8 +49,9 @@
 import SongList from 'components/song-list/song-list'
 import Scroll from 'components/base/scroll'
 import Loading from 'components/base/loading'
-import { mapActions } from 'vuex'
 import axios from 'axios'
+import { mapActions } from 'vuex'
+import Prompt from 'components/base/prompt'
 export default {
   props: {
     bgImage: {
@@ -62,8 +71,11 @@ export default {
   data () {
     return {
       scrollY: 0,
-      url: ''
       // 歌曲播放地址
+      url: '',
+      // 提示框是否显示
+      prompt: false
+
     }
   },
   computed: {
@@ -78,7 +90,8 @@ export default {
   components: {
     SongList,
     Scroll,
-    Loading
+    Loading,
+    Prompt
   },
   methods: {
     ...mapActions([
@@ -95,6 +108,11 @@ export default {
       }).then((res) => {
         if (res.status === 200) {
           // 获取url地址
+          if (res.data.data[0].url === null) {
+            this.prompt = true
+            this.OutPrompt()
+            return
+          }
           const url = res.data.data[0].url
           this.selectPlay({
             list: this.songs,
@@ -104,6 +122,13 @@ export default {
           })
         }
       })
+    },
+    OutPrompt () {
+      var timer = setTimeout(() => {
+        this.prompt = false
+
+        clearTimeout(timer)
+      }, 1800)
     }
   }
 }
@@ -185,6 +210,15 @@ export default {
       right: 0;
       margin: auto;
       padding-bottom: 100%;
+    }
+
+    .prompt-container {
+      position: absolute;
+      width: 100%;
+      height: 30px;
+      background: #2f3542;
+      top: 0;
+      opacity: 0.8;
     }
   }
 }

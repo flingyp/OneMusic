@@ -38,7 +38,7 @@ export default {
     getSingerList () {
       axios.get('api/top/artists', {
         params: {
-          limit: 100
+          limit: 150
         }
       }).then(this.SingerList).catch(function (err) {
         console.log(err)

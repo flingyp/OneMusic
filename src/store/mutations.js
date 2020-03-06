@@ -25,6 +25,9 @@ const mutations = {
   },
   [types.SET_CURRENT_URL] (state, url) {
     state.currentUrl = url
+  },
+  [types.SET_DISC] (state, disc) {
+    state.disc = disc
   }
 }
 

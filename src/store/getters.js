@@ -1,4 +1,3 @@
-
 export const singer = (state) => {
   return state.singer
 }
@@ -41,4 +40,9 @@ export const currentSong = (state) => {
 // 当前播放歌曲map3的url地址
 export const currentUrl = (state) => {
   return state.currentUrl
+}
+
+// 歌单
+export const disc = (state) => {
+  return state.disc
 }

@@ -59,6 +59,10 @@
                 <prompt></prompt>
               </div>
             </transition>
+
+            <div class="middle-r">
+              <div class="cd-gc">暂无歌词</div>
+            </div>
           </div>
         </div>
         <div class="bottom">

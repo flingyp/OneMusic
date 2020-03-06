@@ -19,6 +19,7 @@
               class="song-item"
               v-for="item in listData"
               :key="item.id"
+              @click="selectItem(item)"
             >
               <div class="item-icon">
                 <img
@@ -46,14 +47,15 @@
           v-show="Data.length"
         >
           <div class="song-title">
-            <h1 class="title">推荐音乐</h1>
+            <h1 class="title">推荐新音乐</h1>
           </div>
 
           <ul class="song-list">
             <li
               class="song-item"
-              v-for="item in Data"
+              v-for="(item, index) in Data"
               :key="item.id"
+              @click="playNewMusic(item, Data, index)"
             >
               <div class="item-icon">
                 <img
@@ -76,8 +78,9 @@
       >
         <loading></loading>
       </div>
-
     </div>
+
+    <router-view></router-view>
   </div>
 </template>
 
@@ -85,6 +88,8 @@
 import Swiper from './swiper/Swiper'
 import axios from 'axios'
 import loading from 'components/base/loading'
+import { mapMutations, mapActions } from 'vuex'
+import { createNewMusic } from 'common/song'
 export default {
   name: 'Recommend',
   components: {
@@ -153,7 +158,42 @@ export default {
         // 获取推荐音乐数据
         this.Data = res.data.result
       }
-    }
+    },
+    selectItem (item) {
+      this.$router.push({
+        path: `/recommend/${item.id}`
+      })
+      this.setDisc(item)
+    },
+    playNewMusic (item, newdata, index) {
+      // 获取新音乐url地址
+      axios.get('api/song/url', {
+        params: {
+          id: item.id
+        }
+      }).then((res) => {
+        if (res.status === 200) {
+          const url = res.data.data[0].url
+
+          // 对 新音乐 数组进行修改
+          this.newdata = newdata.map((item) => {
+            return createNewMusic(item)
+          })
+
+          this.selectPlay({
+            list: this.newdata,
+            index,
+            url: url
+          })
+        }
+      })
+    },
+    ...mapMutations({
+      setDisc: 'SET_DISC'
+    }),
+    ...mapActions([
+      'selectPlay'
+    ])
   }
 }
 </script>

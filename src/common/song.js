@@ -34,3 +34,25 @@ export function createSong (music) {
     image: music.al.picUrl
   })
 }
+
+// 推荐页面 推荐歌单 数据结构
+export function createRecommendListSong (music) {
+  return new Song({
+    id: music.id,
+    singer: singerName(music.ar),
+    name: music.name,
+    album: music.al.name,
+    image: music.al.picUrl
+  })
+}
+
+// 推荐页面 推荐新音乐 数据结构
+export function createNewMusic (music) {
+  return new Song({
+    id: music.id,
+    singer: singerName(music.song.artists),
+    name: music.name,
+    album: music.song.album.name,
+    image: music.picUrl
+  })
+}

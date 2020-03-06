@@ -4,7 +4,7 @@
       <i
         @click="back"
         class="iconfont icon-back"
-      >&#xe653;<span>歌手</span></i>
+      >&#xe653;</i>
     </div>
     <h1
       class="title"
@@ -19,6 +19,7 @@
     <scroll
       :data="songs"
       class="content"
+      ref="list"
     >
       <div class="song-list-wrapper">
         <song-list
@@ -181,7 +182,7 @@ export default {
     position: relative;
     width: 100%;
     height: 0;
-    padding-top: 70%;
+    padding-top: 60%;
     transform-origin: top;
     background-size: cover;
 

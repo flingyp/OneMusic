@@ -4,9 +4,8 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
 import BScroll from 'better-scroll'
-
 export default {
   props: {
     probeType: {
@@ -17,19 +16,15 @@ export default {
       type: Boolean,
       default: true
     },
-    listenScroll: {
-      type: Boolean,
-      default: false
-    },
     data: {
       type: Array,
       default: null
     },
-    pullup: {
+    listenScroll: {
       type: Boolean,
       default: false
     },
-    beforeScroll: {
+    pullup: {
       type: Boolean,
       default: false
     },
@@ -40,11 +35,11 @@ export default {
   },
   mounted () {
     setTimeout(() => {
-      this.initScroll()
-    }, 20)
+      this._initScroll()
+    })
   },
   methods: {
-    initScroll () {
+    _initScroll () {
       if (!this.$refs.wrapper) {
         return
       }
@@ -52,6 +47,20 @@ export default {
         probeType: this.probeType,
         click: this.click
       })
+
+      if (this.listenScroll) {
+        let _this = this
+        this.scroll.on('scroll', (pos) => {
+          _this.$emit('scroll', pos)
+        })
+      }
+      if (this.pullup) {
+        this.scroll.on('scrollEnd', () => {
+          if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
+            this.$emit('scrollToEnd')
+          }
+        })
+      }
     },
     enable () {
       this.scroll && this.scroll.enable()
@@ -79,13 +88,5 @@ export default {
 }
 </script>
 
-<style scoped lang="stylus" rel="stylesheet/stylus">
-.wrapper {
-  overflow: hidden;
-  width: 100%;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
+<style>
 </style>

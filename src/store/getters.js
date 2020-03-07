@@ -46,3 +46,8 @@ export const currentUrl = (state) => {
 export const disc = (state) => {
   return state.disc
 }
+
+// 排行 详情数据
+export const topList = (state) => {
+  return state.topList
+}

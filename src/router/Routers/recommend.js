@@ -7,8 +7,7 @@ export default {
   children: [
     {
       path: ':id',
-      component: Disc,
-      props: true
+      component: Disc
     }
   ]
 }

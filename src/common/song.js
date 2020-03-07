@@ -56,3 +56,13 @@ export function createNewMusic (music) {
     image: music.picUrl
   })
 }
+
+// 排行页面 歌曲列表
+export function createRankMusic (music) {
+  return new Song({
+    id: music.id,
+    name: music.name,
+    singer: singerName(music.ar),
+    image: music.al.picUrl
+  })
+}

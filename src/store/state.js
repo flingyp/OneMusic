@@ -9,7 +9,8 @@ const state = {
   mode: playMode.sequence, // 播放模式
   currentIndex: -1, // 播放当前歌曲的索引
   currentUrl: '', // 当前播放歌曲map3的url地址,
-  disc: {} // 歌单
+  disc: {}, // 歌单,
+  topList: {} // 排行 详情数据
 }
 
 export default state

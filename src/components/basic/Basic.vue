@@ -12,7 +12,10 @@
           tag="span"
         >ONEMUSIC</router-link>
       </div>
-      <div class="iconfont header-search">&#xe710;</div>
+      <div
+        class="iconfont header-search"
+        @click="goSearch"
+      >&#xe710;</div>
     </div>
 
     <!-- router导航部分 -->
@@ -40,7 +43,12 @@
 
 <script>
 export default {
-  name: 'Basic'
+  name: 'Basic',
+  methods: {
+    goSearch () {
+      this.$router.push('/search')
+    }
+  }
 }
 </script>
 

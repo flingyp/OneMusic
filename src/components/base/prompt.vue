@@ -13,7 +13,7 @@ export default {
   text-align: center;
   line-height: 30px;
   font-size: 15px;
-  color: #ffffff;
+  color: #000;
   letter-spacing: 0.5px;
 }
 </style>

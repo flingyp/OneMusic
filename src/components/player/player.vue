@@ -151,13 +151,14 @@
     </transition>
 
     <audio
-      ref="audio"
       :src="currentUrl"
+      ref="audio"
       @canplay="ready"
       @error="error"
       @timeupdate="updataTime"
       @ended="end"
-    ></audio>
+    >
+    </audio>
 
   </div>
 

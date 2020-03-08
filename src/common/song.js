@@ -66,3 +66,13 @@ export function createRankMusic (music) {
     image: music.al.picUrl
   })
 }
+
+// 搜索页面 搜索框
+export function createSearchSong (music) {
+  return new Song({
+    id: music.id,
+    singer: singerName(music.artists),
+    name: music.name,
+    album: music.album.name
+  })
+}

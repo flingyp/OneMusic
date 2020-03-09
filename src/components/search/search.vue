@@ -10,29 +10,66 @@
       class="shortcut-wrapper"
       v-show="!query"
     >
-      <div class="shortcut">
-        <div class="hot-key">
-          <h1 class=title>热门搜索</h1>
-          <ul>
-            <li
-              @click="addQuery(item.first)"
-              class="item"
-              v-for="(item, index) in hots"
-              :key="index"
-            >
-              <span>{{item.first}}</span>
-            </li>
-          </ul>
+      <scroll
+        class="shortcut"
+        :data="shortcut"
+        ref="shortcut"
+      >
+        <div>
+          <div class="hot-key">
+            <h1 class=title>热门搜索</h1>
+            <ul>
+              <li
+                @click="addQuery(item.first)"
+                class="item"
+                v-for="(item, index) in hots"
+                :key="index"
+              >
+                <span>{{item.first}}</span>
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="search-history"
+            v-show="searchHistory.length"
+          >
+            <h1 class="title">
+              <span class="text">搜索历史</span>
+              <span
+                class="clear"
+                @click="showConfirm"
+              >
+                <i class="fa fa-trash"></i>
+              </span>
+            </h1>
+            <search-list
+              @select="addQuery"
+              @delete="deleteOne"
+              :searches="searchHistory"
+            ></search-list>
+          </div>
         </div>
-      </div>
+      </scroll>
     </div>
 
     <div
       class="search-result"
       v-show="query"
     >
-      <suggest :query="query"></suggest>
+      <suggest
+        :query="query"
+        @listScroll="blurInput"
+        @select="saveSearch"
+      ></suggest>
     </div>
+
+    <confirm
+      ref="confirm"
+      text="是否清空搜索历史数据"
+      confirBtnText="清空"
+      @confirm="deleteAll"
+    ></confirm>
 
     <router-view></router-view>
   </div>
@@ -42,6 +79,10 @@
 import SearchBox from 'components/search-box/search-box'
 import axios from 'axios'
 import Suggest from 'components/suggest/suggest'
+import { mapActions, mapGetters } from 'vuex'
+import SearchList from 'components/search-list/search-list'
+import Confirm from 'components/base/confirm'
+import Scroll from 'components/base/scroll'
 export default {
   data () {
     return {
@@ -56,9 +97,34 @@ export default {
   },
   components: {
     SearchBox,
-    Suggest
+    Suggest,
+    SearchList,
+    Confirm,
+    Scroll
+  },
+  computed: {
+    ...mapGetters([
+      'searchHistory'
+    ]),
+    shortcut () {
+      return this.hots.concat(this.searchHistory)
+    }
+  },
+  watch: {
+    query (newquery) {
+      if (!newquery) {
+        setTimeout(() => {
+          this.$refs.shortcut.refresh()
+        }, 20)
+      }
+    }
   },
   methods: {
+    ...mapActions([
+      'saveSearchHistory',
+      'deleteSearchHistory',
+      'clearSearchHistory'
+    ]),
     _getHotKey () {
       axios.get('api/search/hot').then(res => {
         if (res.status === 200) {
@@ -71,8 +137,23 @@ export default {
       // 调用 searchBox 组件的 setQuery 事件 传过去的query参数为关键词
       this.$refs.searchBox.setQuery(query)
     },
+    deleteOne (item) {
+      this.deleteSearchHistory(item)
+    },
+    deleteAll () {
+      this.clearSearchHistory()
+    },
     onQueryChange (newquery) {
       this.query = newquery
+    },
+    blurInput () {
+      this.$refs.searchBox.blur()
+    },
+    saveSearch () {
+      this.saveSearchHistory(this.query)
+    },
+    showConfirm () {
+      this.$refs.confirm.show()
     }
   }
 }
@@ -127,7 +208,7 @@ export default {
           align-items: center;
           height: 40px;
           font-size: $font-size-medium;
-          color: $color-text-l;
+          color: #757575;
 
           .text {
             flex: 1;
@@ -136,9 +217,9 @@ export default {
           .clear {
             extend-click();
 
-            .icon-clear {
-              font-size: $font-size-medium;
-              color: $color-text-d;
+            .fa-trash {
+              font-size: 15px;
+              color: #cccccc;
             }
           }
         }

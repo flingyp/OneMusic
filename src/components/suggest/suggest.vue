@@ -3,6 +3,8 @@
     class="suggest"
     :data="songs"
     :pullup="pullup"
+    :beforeScroll="beforeScroll"
+    @beforeScroll="listScroll"
     @scrollToEnd="searchMore"
     ref="suggest"
   >
@@ -33,6 +35,13 @@
         <prompt></prompt>
       </div>
     </transition>
+
+    <div
+      v-show="!hasMore && !songs.length"
+      class="no-result-wrapper"
+    >
+      抱歉，未搜索出结果
+    </div>
   </scroll>
 
 </template>
@@ -52,7 +61,8 @@ export default {
       // 上拉刷新 启动
       pullup: true,
       hasMore: true,
-      prompt: false
+      prompt: false,
+      beforeScroll: true
     }
   },
   components: {
@@ -81,7 +91,6 @@ export default {
       this.songs = []
       this.page = 0
       this.hasMore = true
-
       this.search()
     }
   },
@@ -150,19 +159,18 @@ export default {
           this.OutPrompt()
           return
         }
-
         // 请求歌曲的图片
         this.getSongImage(item.id).then((res) => {
           // 将图片放入 item 后
           item.image = res.data.songs[0].al.picUrl
           // 提交到 vuex 中
           this.insertSong(item)
-
           console.log(item)
         })
         // 把歌曲的URL 提交到Vuex中
         this.setCurrentUrl(url)
       })
+      this.$emit('select')
     },
     getSongImage (id) {
       // 请求歌曲的图片
@@ -175,9 +183,11 @@ export default {
     OutPrompt () {
       var timer = setTimeout(() => {
         this.prompt = false
-
         clearTimeout(timer)
       }, 1800)
+    },
+    listScroll () {
+      this.$emit('listScroll')
     }
   }
 }
@@ -240,10 +250,12 @@ export default {
   }
 
   .no-result-wrapper {
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    transform: translateY(-50%);
+    position: fixed;
+    left: 50%;
+    top: 40vh;
+    transform: translatex(-50%);
+    color: #000;
+    font-size: 16px;
   }
 }
 </style>

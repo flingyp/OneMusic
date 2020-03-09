@@ -51,3 +51,8 @@ export const disc = (state) => {
 export const topList = (state) => {
   return state.topList
 }
+
+// 搜索历史 数据
+export const searchHistory = (state) => {
+  return state.searchHistory
+}

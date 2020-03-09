@@ -5,6 +5,7 @@
       class="box"
       :placeholder="placeholder"
       v-model="query"
+      ref="query"
     >
     <i
       v-show="query"
@@ -15,6 +16,7 @@
 </template>
 
 <script>
+import { debounce } from 'common/util'
 export default {
   props: {
     placeholder: {
@@ -35,11 +37,17 @@ export default {
     // 当点击热门搜索的关键词 关键词会同步在 搜索框中
     setQuery (query) {
       this.query = query
+    },
+    blur () {
+      this.$refs.query.blur()
     }
   },
   created () {
     // 监听输入框 输入的 query的变化 触发 query 自定义事件 将新输入的 newquery 传给 search 组件
-    this.$watch('query', newquery => this.$emit('query', newquery))
+    this.$watch('query', newquery => {
+      // console.log('执行了')
+      debounce(this.$emit('query', newquery), 220)
+    })
   }
 }
 </script>

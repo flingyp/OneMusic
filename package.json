@@ -17,6 +17,7 @@
     "babel-runtime": "^6.26.0",
     "better-scroll": "^1.15.2",
     "fastclick": "^1.0.6",
+    "good-storage": "^1.1.1",
     "pinyin": "^2.9.0",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",

@@ -1,6 +1,6 @@
 # onemusic
 
-> A Vue.js project
+> 仿移动端音乐Web APP
 
 ## Build Setup
 
@@ -17,6 +17,23 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
+
+## 前端技术栈
+1. Vue全家桶
+   1. Vue.js 框架
+   2. Vue.router 前端路由
+   3. Vue.cli 脚手架
+   4. Vuex
+2. axios 
+3. 相关插件的使用
+    1. babel-polyfill  babel-runtime fastclick
+    2. Vue-Awesome-Swiper 轮播组件
+    3. better-scroll 
+    4. vue-lazyload 图片懒加载
+    5. pinyin
+    6. animate.css 动画库
+    7. good-storage
+
 
 ## 具体实现功能
 
@@ -66,6 +83,9 @@ npm run build --report
 4. 搜索历史数据存放在 Vuex 和 本地存储中 这里会使用到一个插件 `good-storage`
 
 ### 歌曲列表页面
+1. 添加 切换歌曲 功能
+2. 删除 播放列表歌曲 功能
+3. 清空 播放列表歌曲 功能
 
 ### 用户中心页面
 
@@ -79,5 +99,6 @@ npm run build --report
   * 然后在知乎看到 [Vue 实现网易云音乐 WebApp](https://zhuanlan.zhihu.com/p/36889981) 这篇文章
   * 就决定去按照它的样式模板自己去写一个了
   * 然后就是发现有这个 数据的提供 就觉得很舒服 完全不用顾及
+  * 虽然造轮子的人多了 但是 在学习方面不管造什么轮子都是好轮子 有收获就行
 
 

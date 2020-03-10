@@ -144,11 +144,16 @@
             :class="miniIcon"
           ></i>
         </div>
-        <div class="control">
+        <div
+          class="control"
+          @click="showPlaylist"
+        >
           <i class="fa fa-random"></i>
         </div>
       </div>
     </transition>
+
+    <play-list ref="playlist"></play-list>
 
     <audio
       :src="currentUrl"
@@ -171,6 +176,7 @@ import ProgressBar from 'components/base/progress-bar'
 import { playMode } from 'common/config.js'
 import { random } from 'common/util.js'
 import Prompt from 'components/base/prompt'
+import PlayList from 'components/play-list/play-list'
 export default {
   data () {
     return {
@@ -187,7 +193,8 @@ export default {
   },
   components: {
     ProgressBar,
-    Prompt
+    Prompt,
+    PlayList
   },
   computed: {
     ...mapGetters([
@@ -370,10 +377,16 @@ export default {
       }
       this.resetCurrentIndex(list)
       this.setPlayList(list)
+    },
+    showPlaylist () {
+      this.$refs.playlist.show()
     }
   },
   watch: {
     currentSong (newSong, oldSong) {
+      if (!newSong.id) {
+        return
+      }
       if (newSong.id === oldSong.id) {
         return
       }

@@ -106,13 +106,13 @@ npm run build --report
 
 ### 推荐页面 、 排行页面 、热门歌手页面
 
-<img src="E:\ONEMUSIC\onemusic\static\imgs\推荐页面首页.png" alt="推荐页面首页" style="zoom:33%;" />          <img src="E:\ONEMUSIC\onemusic\static\imgs\排行页面.png" alt="排行页面" style="zoom:33%;" />            <img src="E:\ONEMUSIC\onemusic\static\imgs\热门歌手页面.png" alt="热门歌手页面" style="zoom:33%;" />
+<img src="https://s2.ax1x.com/2020/03/11/8kA5Kx.png" alt="推荐页面首页" style="zoom:33%;" />          <img src="https://s2.ax1x.com/2020/03/11/8kARPJ.png" alt="排行页面" style="zoom:33%;" />            <img src="https://s2.ax1x.com/2020/03/11/8kAWG9.png" alt="热门歌手页面" style="zoom:33%;" />
 
 ### 推荐歌单歌曲页面 、 歌手歌曲页面  、 单曲播放器页面
 
- <img src="E:\ONEMUSIC\onemusic\static\imgs\推荐歌单歌曲页面.png" alt="推荐歌单歌曲页面" style="zoom:33%;" />          <img src="E:\ONEMUSIC\onemusic\static\imgs\歌手歌曲页面.png" alt="歌手歌曲页面" style="zoom:33%;" />            <img src="E:\ONEMUSIC\onemusic\static\imgs\单曲播放器页面.png" alt="单曲播放器页面" style="zoom:33%;" />
+ <img src="https://s2.ax1x.com/2020/03/11/8kAf2R.png" alt="推荐歌单歌曲页面" style="zoom:33%;" />          <img src="https://s2.ax1x.com/2020/03/11/8kA6VU.png" alt="歌手歌曲页面" style="zoom:33%;" />            <img src="https://s2.ax1x.com/2020/03/11/8kAsbT.png" alt="单曲播放器页面" style="zoom:33%;" />
 
 ### 歌曲搜索页面 、 播放歌曲列表页面 、 排行榜歌曲页面
 
-<img src="E:\ONEMUSIC\onemusic\static\imgs\歌曲搜索页面.png" alt="歌曲搜索页面" style="zoom:33%;" />            <img src="E:\ONEMUSIC\onemusic\static\imgs\播放歌曲列表页面.png" alt="播放歌曲列表页面" style="zoom:33%;" />            <img src="E:\ONEMUSIC\onemusic\static\imgs\排行榜歌曲页面.png" alt="排行榜歌曲页面" style="zoom:33%;" />
+<img src="https://s2.ax1x.com/2020/03/11/8kADK0.png" alt="歌曲搜索页面" style="zoom:33%;" />            <img src="https://s2.ax1x.com/2020/03/11/8kAcaF.png" alt="播放歌曲列表页面" style="zoom:33%;" />            <img src="https://s2.ax1x.com/2020/03/11/8kArrV.png" alt="排行榜歌曲页面" style="zoom:33%;" />
 

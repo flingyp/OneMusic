@@ -1,4 +1,4 @@
-# onemusic
+ onemusic
 
 > 仿移动端音乐Web APP
 
@@ -102,4 +102,17 @@ npm run build --report
   * 然后就是发现有这个 数据的提供 就觉得很舒服 完全不用顾及
   * 虽然造轮子的人多了 但是 在学习方面不管造什么轮子都是好轮子 有收获就行
 
+## 页面效果
+
+### 推荐页面 、 排行页面 、热门歌手页面
+
+<img src="E:\ONEMUSIC\onemusic\static\imgs\推荐页面首页.png" alt="推荐页面首页" style="zoom:33%;" />          <img src="E:\ONEMUSIC\onemusic\static\imgs\排行页面.png" alt="排行页面" style="zoom:33%;" />            <img src="E:\ONEMUSIC\onemusic\static\imgs\热门歌手页面.png" alt="热门歌手页面" style="zoom:33%;" />
+
+### 推荐歌单歌曲页面 、 歌手歌曲页面  、 单曲播放器页面
+
+ <img src="E:\ONEMUSIC\onemusic\static\imgs\推荐歌单歌曲页面.png" alt="推荐歌单歌曲页面" style="zoom:33%;" />          <img src="E:\ONEMUSIC\onemusic\static\imgs\歌手歌曲页面.png" alt="歌手歌曲页面" style="zoom:33%;" />            <img src="E:\ONEMUSIC\onemusic\static\imgs\单曲播放器页面.png" alt="单曲播放器页面" style="zoom:33%;" />
+
+### 歌曲搜索页面 、 播放歌曲列表页面 、 排行榜歌曲页面
+
+<img src="E:\ONEMUSIC\onemusic\static\imgs\歌曲搜索页面.png" alt="歌曲搜索页面" style="zoom:33%;" />            <img src="E:\ONEMUSIC\onemusic\static\imgs\播放歌曲列表页面.png" alt="播放歌曲列表页面" style="zoom:33%;" />            <img src="E:\ONEMUSIC\onemusic\static\imgs\排行榜歌曲页面.png" alt="排行榜歌曲页面" style="zoom:33%;" />
 

@@ -1,3 +1,4 @@
+
 export const singer = (state) => {
   return state.singer
 }
@@ -55,4 +56,9 @@ export const topList = (state) => {
 // 搜索历史 数据
 export const searchHistory = (state) => {
   return state.searchHistory
+}
+
+// 播放历史 数据
+export const playHistory = (state) => {
+  return state.playHistory
 }

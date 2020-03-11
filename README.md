@@ -88,6 +88,7 @@ npm run build --report
 3. 清空 播放列表歌曲 功能
 
 ### 用户中心页面
+1. 不打算去做了
 
 ## 数据和数据接口API
   * 数据调用的是 **NeteaseCloudMusicApi(网易云音乐 NodeJS 版 API)**

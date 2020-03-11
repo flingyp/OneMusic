@@ -292,6 +292,11 @@ export default {
       if (index === this.playlist.length) {
         index = 0
       }
+      // 歌曲只有一首的情况下
+      if (this.playlist.length === 1) {
+        this.aloop()
+        return
+      }
       this.setCurrentIndex(index)
       // 根据当前索引 获取 id值 再发送请求获取 歌曲url值 再修改 vuex中的 currentUrl
       this.getUrl(this.playlist[index].id)
@@ -301,6 +306,11 @@ export default {
         this.togglePlaying()
       }
       this.songReady = false
+    },
+    // 歌曲只有一首的情况下
+    aloop () {
+      this.$refs.audio.currentTime = 0
+      this.$refs.audio.play()
     },
     end () {
       // 歌曲播放完了
@@ -320,6 +330,11 @@ export default {
       let index = this.currentIndex - 1
       if (index === -1) {
         index = this.playlist.length - 1
+      }
+      // 歌曲只有一首的情况下
+      if (this.playlist.length === 1) {
+        this.aloop()
+        return
       }
       this.setCurrentIndex(index)
       // 根据当前索引 获取 id值 再发送请求获取 歌曲url值 再修改 vuex中的 currentUrl

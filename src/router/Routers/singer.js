@@ -1,5 +1,14 @@
-import Singer from 'components/singer/Singer'
-import SingerDetail from 'components/singer-detail/singer-detail'
+const Singer = resolve => {
+  import('components/singer/Singer').then((module) => {
+    resolve(module)
+  })
+}
+
+const SingerDetail = resolve => {
+  import('components/singer-detail/singer-detail').then((module) => {
+    resolve(module)
+  })
+}
 
 export default {
   path: '/singer',

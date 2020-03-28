@@ -126,7 +126,7 @@ export default {
       'clearSearchHistory'
     ]),
     _getHotKey () {
-      axios.get('api/search/hot').then(res => {
+      axios.get('/search/hot').then(res => {
         if (res.status === 200) {
           this.hots = res.data.result.hots
         }

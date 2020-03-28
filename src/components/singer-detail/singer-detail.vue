@@ -40,7 +40,7 @@ export default {
         this.$router.push('/singer')
         return
       }
-      axios.get('api/artists', {
+      axios.get('/artists', {
         params: {
           id: this.singer.id
         }

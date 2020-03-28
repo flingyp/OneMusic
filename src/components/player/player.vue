@@ -238,7 +238,7 @@ export default {
     }),
     // 发送url请求 获取url地址 再改变vuex 的 setCurrentUrl值
     getUrl (id) {
-      axios.get('api/song/url', {
+      axios.get('/song/url', {
         params: {
           // 歌曲的id值
           id

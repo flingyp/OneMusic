@@ -106,7 +106,7 @@ export const deleteSong = function ({ commit, state }, song) {
       return
     }
     // 去请求下一首歌的url
-    axios.get('api/song/url', {
+    axios.get('/song/url', {
       params: {
         // 歌曲的id值
         id: playlist[pIndex].id

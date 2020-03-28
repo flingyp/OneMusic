@@ -107,7 +107,7 @@ export default {
       this.$router.back()
     },
     selectItem (item, index) {
-      axios.get('api/song/url', {
+      axios.get('/song/url', {
         params: {
           id: item.id
         }

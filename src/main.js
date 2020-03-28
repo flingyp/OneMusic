@@ -13,8 +13,10 @@ import 'assets/style/global.css'
 import 'animate.css'
 import 'assets/style/font-awesome/css/font-awesome.min.css'
 import store from './store'
+import axios from 'axios'
 
 Vue.config.productionTip = false
+axios.defaults.baseURL = 'https://autumnfish.cn'
 
 fastClick.attach(document.body)
 Vue.use(VueAwesomeSwiper)

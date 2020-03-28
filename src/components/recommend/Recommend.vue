@@ -117,7 +117,7 @@ export default {
   methods: {
     // 获取轮播图数据函数
     GetSwiperData () {
-      axios.get('api/banner', {
+      axios.get('/banner', {
         params: {
           type: this.type
         }
@@ -134,7 +134,7 @@ export default {
     },
     getSongList () {
       // 请求推荐歌单数据
-      axios.get('api/personalized', {
+      axios.get('/personalized', {
         params: {
           limit: 50
         }
@@ -143,7 +143,7 @@ export default {
       })
 
       // 请求推荐音乐数据
-      axios.get('api/personalized/newsong').then(this.Song).catch(function (err) {
+      axios.get('/personalized/newsong').then(this.Song).catch(function (err) {
         console.log(err)
       })
     },
@@ -167,7 +167,7 @@ export default {
     },
     playNewMusic (item, newdata, index) {
       // 获取新音乐url地址
-      axios.get('api/song/url', {
+      axios.get('/song/url', {
         params: {
           id: item.id
         }

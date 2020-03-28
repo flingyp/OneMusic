@@ -36,7 +36,7 @@ export default {
     }),
     // 获取请求歌手数据
     getSingerList () {
-      axios.get('api/top/artists', {
+      axios.get('/top/artists', {
         params: {
           limit: 150
         }

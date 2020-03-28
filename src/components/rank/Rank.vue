@@ -76,7 +76,7 @@ export default {
     }),
     getTopList () {
       for (let i = 0; i < RANK_TOP.length; i++) {
-        axios.get('api/top/list', {
+        axios.get('/top/list', {
           params: {
             idx: RANK_TOP[i]
           }

@@ -46,7 +46,7 @@ export default {
         return
       }
 
-      axios.get('api/playlist/detail', {
+      axios.get('/playlist/detail', {
         params: {
           id: this.disc.id
         }

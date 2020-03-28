@@ -98,7 +98,7 @@ export default {
     search () {
       this.hasMore = true
       this.$refs.suggest.scrollTo(0, 0)
-      axios.get('api/search', {
+      axios.get('/search', {
         params: {
           keywords: this.query,
           offset: this.page
@@ -120,7 +120,7 @@ export default {
       if (!this.hasMore) {
         return
       }
-      axios.get('api/search', {
+      axios.get('/search', {
         params: {
           keywords: this.query,
           offset: this.page
@@ -147,7 +147,7 @@ export default {
     }),
     selectItem (item) {
       // 请求歌曲的url
-      axios.get('api/song/url', {
+      axios.get('/song/url', {
         params: {
           // 歌曲的id值
           id: item.id
@@ -174,7 +174,7 @@ export default {
     },
     getSongImage (id) {
       // 请求歌曲的图片
-      return axios.get('api/song/detail', {
+      return axios.get('/song/detail', {
         params: {
           ids: id
         }
